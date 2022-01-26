@@ -59,6 +59,9 @@ def llvm_register_toolchains():
 """)
         return
     arch = _arch(rctx)
+    if os == "darwin" and arch == "arm64":
+        # an attempt to fix LLVM toolchain on apple silicon by forcing the amd64 arch
+        arch = "x86_64"
 
     key = _os_arch_pair(os, arch)
     toolchain_root = rctx.attr.toolchain_roots.get(key)
