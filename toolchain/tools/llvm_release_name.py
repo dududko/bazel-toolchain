@@ -183,6 +183,10 @@ def main():
 
     system = platform.system()
     arch = platform.machine()
+    if os == "darwin" and arch == "arm64":
+        # an attempt to fix LLVM toolchain on apple silicon by forcing the amd64 arch
+        arch = "x86_64"
+
 
     if system == "Darwin":
         print(_darwin(llvm_version, arch))
